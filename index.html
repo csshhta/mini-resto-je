@@ -167,6 +167,24 @@ document.querySelectorAll('[data-garnish]').forEach(b=>b.onclick=()=>{if(!S.cook
 $('serveDish').onclick=()=>{if(!S.cooked){toast('Your dish belum ready!');return}let x=g(),correct=x.order.every(id=>S.dish.includes(id))&&S.dish.length===x.order.length;let stars=correct?3:1;let pay=correct?18:7,tip=correct?8:2;S.stars+=stars;S.cash+=pay+tip;S.tips+=tip;S.served++;S.history.unshift(`${x.pet} ${x.name}: ${stars}⭐ · ${correct?'order perfect!':'almost there!'}`);S.history=S.history.slice(0,5);updateStats();$('history').innerHTML=S.history.map(h=>`<div class="recipe">${h}</div>`).join('');$('orderStatus').textContent='SERVED';$('guestFace').classList.add('eating');$('guestSpeech').textContent='nom nom nom... OMG, this is so yummy!!';$('memo').textContent=correct?'“Order-nya perfect! Deje proud of elu. Look at that happy customer!”':'“Customer still happy, but next time double-check the order note, okay?”';for(let i=0;i<5;i++){let c=document.createElement('span');c.className='crumb';c.textContent=['✨','♡','🍞','💗','✨'][i];c.style.left=(35+i*10)+'%';c.style.top='35%';$('guestFace').parentElement.appendChild(c);setTimeout(()=>c.remove(),900)}setTimeout(()=>{$('guestFace').classList.remove('eating');$('guestFace').classList.add('happy');$('modalFace').textContent=correct?'🥹💗':'😋';$('modalTitle').textContent=correct?'OMG, so yummy!!':'Thanks, chef Deje!';$('modalText').textContent=`${x.name} makan dengan happy! ${stars} stars · $${pay} + $${tip} tip. ${correct?'You nailed the order, bestie!':'Next order, kita improve lagi ya.'}`;$('eatModal').classList.remove('hidden');save()},1900)};
 $('nextOrder').onclick=()=>{S.guest++;S.day=1+Math.floor(S.served/4);S.prepared=[];S.dish=[];S.garnish=[];S.method='';S.stirs=0;S.cooked=false;selected=null;swipes=0;$('eatModal').classList.add('hidden');document.querySelectorAll('[data-method]').forEach(x=>x.style.background='');setGuest();updateStats();renderInv();updateBoard();updatePan();renderPlate();go('orders');$('memo').textContent='New guest incoming! Cek order notebook dulu, Deje!';save()};
 $('sound').onclick=()=>{S.muted=!S.muted;$('sound').textContent=S.muted?'🔇':'🔊';save();if(!S.muted)beep()};
+const bgMusic = new Audio('./bgm.mp3');
+bgMusic.loop = true;
+bgMusic.volume = 0.3;
+
+$('sound').onclick = async () => {
+  if (bgMusic.paused) {
+    try {
+      await bgMusic.play();
+      $('sound').textContent = '🎵 Music ON';
+    } catch (error) {
+      alert('Musik gagal diputar. Coba lagi ya!');
+    }
+  } else {
+    bgMusic.pause();
+    $('sound').textContent = '🔇 Music OFF';
+  }
+};
+
 $('reset').onclick=()=>{if(confirm('Reset semua progress Deje?')){localStorage.removeItem('dejeComfyKitchen');location.reload()}};
 load();renderMarket();setGuest();updateStats();renderInv();updateBoard();updatePan();renderPlate();if(S.history.length)$('history').innerHTML=S.history.map(h=>`<div class="recipe">${h}</div>`).join('');
 </script>
