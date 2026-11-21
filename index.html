@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deje's Comfy Kitchen</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;600;700;800;900&display=swap');
+:root{--ink:#655044;--muted:#9b8170;--cream:#fffaf0;--paper:#fffdf7;--peach:#f6d6c8;--pink:#f4c9ce;--mint:#d9eadb;--sage:#a9c4a5;--butter:#f5dfa0;--wood:#c59b79;--line:#b18d72;--shadow:#d8b99d}
+*{box-sizing:border-box}body{margin:0;color:var(--ink);font-family:'Nunito','Baloo 2',system-ui,sans-serif;background:#f7eee0 url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23e8d8c4' fill-opacity='.35'%3E%3Ccircle cx='12' cy='14' r='2'/%3E%3Ccircle cx='60' cy='54' r='2'/%3E%3C/g%3E%3C/svg%3E");min-height:100vh}
+button{font:800 14px inherit;font-family:inherit;color:var(--ink);border:2px solid var(--line);background:var(--cream);border-radius:15px;padding:9px 13px;box-shadow:0 4px 0 var(--shadow);cursor:pointer;transition:transform .14s,box-shadow .14s}button:hover{transform:translateY(-2px)}button:active{transform:translateY(2px);box-shadow:0 1px 0 var(--shadow)}button:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.top{max-width:1180px;margin:12px auto 0;padding:10px 15px;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:#fffaf0eF;border:2px solid var(--line);border-radius:22px;box-shadow:0 5px 0 var(--shadow)}
+.logo{font-family:'Baloo 2';font-size:1.35rem;font-weight:900}.logo small{display:block;font:700 10px Nunito;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:-7px}
+.stats{display:flex;gap:7px;flex-wrap:wrap}.pill{background:white;border:1.5px solid #ddc4ab;border-radius:99px;padding:5px 11px;font-weight:900;font-size:13px}
+main{max-width:1180px;margin:14px auto;padding:0 12px 26px}.sign{text-align:center;margin:8px 0 2px;font:900 clamp(26px,5vw,42px) 'Baloo 2';text-shadow:2px 3px #fff}.sub{text-align:center;color:var(--muted);font-weight:800;margin-bottom:14px}
+.shop{border:3px solid var(--line);border-radius:26px;padding:13px;background:linear-gradient(#fdf5e7 0 56%,#ead5bd 56% 100%);box-shadow:0 7px 0 #c6a184;position:relative;overflow:hidden}
+.shop:before{content:"✿  ✧  ♡  ✧  ✿";position:absolute;right:16px;top:7px;color:#d5b99d;letter-spacing:8px;opacity:.65}
+.tabs{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin:5px 0 13px}.tabs button.active{background:var(--butter);transform:translateY(-2px)}
+.grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(260px,.75fr);gap:12px}.panel{background:#fffaf0f2;border:2px solid #b89477;border-radius:20px;padding:13px;box-shadow:0 4px 0 #d4b496;min-width:0}.panel h2{font:900 21px 'Baloo 2';margin:0 0 8px}.panel h3{font:900 16px 'Baloo 2';margin:9px 0 5px}
+.page{display:none}.page.active{display:block}.tiny{font-size:12px;color:var(--muted);font-weight:800}.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.between{justify-content:space-between}
+.card{background:#fffdf7;border:1.5px solid #ddc4ab;border-radius:16px;padding:10px;margin:7px 0}.market{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.food{border:2px solid #d8b99d;background:#fff4df;border-radius:16px;padding:8px 3px;text-align:center;cursor:pointer;min-width:0}.food:hover{background:white;transform:rotate(-1deg)}.food .emoji{display:block;font-size:30px}.food b{display:block;font-size:13px}.food small{font-size:11px;color:var(--muted)}
+.order{display:flex;gap:10px;align-items:center;background:#f9e3df;border-radius:17px;padding:10px}.pet{font-size:54px;filter:drop-shadow(1px 3px #ddc4ab);animation:bob 2s infinite ease-in-out}.bubble{background:white;border:1.5px solid #ddc4ab;border-radius:15px;padding:8px 10px;flex:1;font-size:13px;font-weight:700}.bubble strong{display:block;font-size:14px}
+@keyframes bob{50%{transform:translateY(-4px)}}
+.order-items{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px}.tag{background:#fff5d8;border:1px solid #dfc18e;border-radius:99px;padding:3px 8px;font-size:12px;font-weight:900}
+.inventory{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.inv{background:#f5eee2;border:1.5px solid #d7b99c;border-radius:12px;padding:7px;font-size:12px;font-weight:900;display:flex;justify-content:space-between;gap:4px;cursor:pointer}.inv.active{outline:3px solid #e7bf69;background:#fff1c8}
+.station{background:linear-gradient(145deg,#e2eee2,#d2e3d6);border:2px solid #a9b99e;border-radius:19px;padding:12px;margin:8px 0;text-align:center;min-height:175px;position:relative;overflow:hidden}
+.board{height:115px;background:repeating-linear-gradient(90deg,#d5b18e 0 28px,#cda783 29px 31px);border:5px solid #b18b69;border-radius:16px;position:relative;display:flex;align-items:center;justify-content:center;gap:12px;margin:9px auto;max-width:490px;overflow:hidden}
+.board:after{content:"";position:absolute;inset:7px;border:1px dashed #f7e5c8;border-radius:8px;pointer-events:none}
+.chop-food{font-size:43px;z-index:1;transition:.15s}.knife{font-size:40px;z-index:2;touch-action:none;user-select:none;cursor:grab;position:absolute;left:16px;top:7px;filter:drop-shadow(2px 3px #98765c)}
+.knife.dragging{cursor:grabbing;transform:rotate(-22deg)}
+.progress{height:13px;background:#ead6c1;border:1px solid #b18b69;border-radius:99px;overflow:hidden;margin:8px auto;max-width:420px}.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#a9cda8,#f4d27c);transition:width .15s}
+.pan{width:180px;height:92px;border:9px solid #8f8278;border-radius:48% 48% 40% 40%;background:#b9c5bd;margin:14px auto 8px;display:flex;align-items:center;justify-content:center;gap:3px;box-shadow:0 7px 0 #76695f;position:relative}.pan:after{content:"";position:absolute;width:68px;height:13px;background:#9b8c7e;right:-66px;top:30px;border-radius:9px}.pan .bit{font-size:26px;animation:sizzle .5s infinite alternate}
+@keyframes sizzle{to{transform:translateY(-4px) rotate(7deg)}}
+.plate{width:min(100%,330px);min-height:125px;margin:12px auto;background:#fffdf7;border:11px solid #e9d8c3;border-radius:50%;box-shadow:inset 0 0 0 2px #c9ad8e;display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;padding:18px}.plate span{font-size:30px;animation:pop .25s ease-out}@keyframes pop{from{transform:scale(.5)}to{transform:scale(1)}}
+.hint{font-size:13px;font-weight:800;color:#876b56;min-height:21px;text-align:center}.actions{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:10px 0}
+.note{background:#fff2c9;border:1.5px dashed #c7a36e;border-radius:14px;padding:9px;font-size:13px;font-weight:800}
+.recipe{display:flex;justify-content:space-between;gap:8px;padding:7px 0;border-bottom:1px dashed #dbc2a7;font-size:13px}.recipe:last-child{border:0}
+.customer-stage{background:linear-gradient(#f8e7dc,#f2d9c8);border:2px solid #c7a184;border-radius:18px;min-height:200px;padding:12px;text-align:center;overflow:hidden;position:relative}
+.customer-big{font-size:85px;display:block;transition:.3s}.customer-big.eating{animation:chomp .32s infinite alternate}.customer-big.happy{animation:hop .45s 3}
+@keyframes chomp{from{transform:scaleY(1) rotate(-2deg)}to{transform:scaleY(.88) rotate(2deg)}}
+@keyframes hop{50%{transform:translateY(-18px) rotate(8deg)}}
+.crumb{position:absolute;font-size:20px;animation:crumb .8s forwards}@keyframes crumb{to{transform:translate(35px,-35px) rotate(130deg);opacity:0}}
+.hidden{display:none!important}.toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#665044;color:white;padding:10px 16px;border-radius:99px;box-shadow:0 4px 14px #0002;z-index:20;opacity:0;pointer-events:none;transition:.2s;font-weight:800;text-align:center;max-width:90vw}.toast.show{opacity:1}
+.modal{position:fixed;inset:0;background:#514033aa;display:grid;place-items:center;padding:16px;z-index:30}.modalbox{background:var(--cream);border:3px solid var(--line);border-radius:25px;padding:22px;max-width:430px;width:100%;text-align:center;box-shadow:0 8px 0 #a78365}
+.footer{text-align:center;color:#927763;font-size:12px;font-weight:800;margin:13px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.market{grid-template-columns:repeat(4,minmax(0,1fr))}.top{margin:7px}.logo{font-size:1.1rem}.panel{padding:10px}}
+@media(max-width:430px){.market{grid-template-columns:repeat(2,minmax(0,1fr))}.stats{width:100%}.board{height:105px}.pet{font-size:45px}}
+</style>
+</head>
+<body>
+<header class="top">
+ <div class="logo">🥐 Deje's Comfy Kitchen <small>little bakery · big cozy energy</small></div>
+ <div class="stats"><span class="pill" id="cash">🪙 $45</span><span class="pill" id="day">☀️ Day 1</span><span class="pill" id="stars">⭐ 0</span><span class="pill" id="served">🍽️ 0 served</span></div>
+ <div><button id="sound">🔊</button> <button id="reset">↻ Reset</button></div>
+</header>
+<main>
+ <h1 class="sign">Pong Bakery by Deje ♡</h1>
+ <div class="sub">slow mornings, warm bread, happy little guests ✿</div>
+ <div class="shop">
+  <nav class="tabs">
+   <button class="active" data-tab="orders">📒 Order book</button><button data-tab="market">🧺 Market</button><button data-tab="prep">🔪 Prep station</button><button data-tab="cook">🍳 Cooking</button><button data-tab="serve">🍽️ Plating</button>
+  </nav>
+  <div class="grid">
+   <div class="panel">
+    <section id="orders" class="page active">
+     <h2>📒 Deje's order notebook</h2>
+     <div class="order"><div class="pet" id="orderPet">🐱</div><div class="bubble"><strong id="orderName">Mimi the Cat</strong><span id="orderLine">“Bestie, gue lagi craving breakfast!”</span><div class="order-items" id="orderItems"></div></div></div>
+     <div class="card"><div class="row between"><b>Today's order</b><span class="tag" id="orderStatus">WAITING</span></div><p id="orderDesc" style="margin:5px 0">Tolong bikinin menu yang sesuai pesanan, ya!</p><div class="tiny">Deje's note: jangan lupa prep bahan dulu. Quality over everything ✨</div></div>
+     <div class="note" id="dejeNote">“Hi, gue Deje, owner bakery ini. Elu handle dapur, gue handle vibes. Deal?”</div>
+     <div class="actions"><button onclick="go('market')">Belanja bahan →</button><button onclick="go('prep')">Ke prep station →</button></div>
+     <h3>Order history</h3><div id="history" class="tiny">Belum ada order yang selesai. Let's make the first one!</div>
+    </section>
+    <section id="market" class="page">
+     <h2>🧺 Tiny local market</h2><p class="tiny">Tap bahan buat beli. Elu bisa beli beberapa bahan sekaligus selama cash masih aman.</p>
+     <div class="market" id="marketGrid"></div>
+     <div class="actions"><button onclick="go('orders')">← Order book</button><button onclick="go('prep')">Next: prep →</button></div>
+    </section>
+    <section id="prep" class="page">
+     <h2>🔪 Cutting board time</h2>
+     <div class="note">Pilih bahan dari inventory, lalu drag pisau ke kanan-kiri di atas cutting board. Swipe 3x sampai chopped. No rush, chef!</div>
+     <div class="station">
+      <div><b id="prepLabel">Pick an ingredient dulu, bestie.</b></div>
+      <div class="board" id="board"><span class="chop-food" id="chopFood">🥕</span><span class="knife" id="knife">🔪</span></div>
+      <div class="progress"><span id="chopProgress"></span></div>
+      <div class="hint" id="prepHint">Pilih bahan di inventory bawah. Drag pisaunya bolak-balik.</div>
+     </div>
+     <h3>Your ingredients</h3><div class="inventory" id="prepInventory"></div>
+     <div class="actions"><button onclick="go('cook')">Ke cooking →</button><button onclick="autoPrep()">Auto-prep bahan non-potong</button></div>
+    </section>
+    <section id="cook" class="page">
+     <h2>🍳 Stove & pan</h2>
+     <div class="note">Masukkan semua bahan pesanan yang sudah dipotong, pilih metode, lalu stir sampai bar pas. Elu got this!</div>
+     <div class="station">
+      <div class="tiny">DEJE'S SIGNATURE PAN</div><div class="pan" id="pan"><span class="bit">🍳</span></div>
+      <div class="progress"><span id="cookProgress"></span></div><div class="hint" id="cookHint">Choose your cooking style.</div>
+     </div>
+     <div class="actions"><button data-method="Fry">🍳 Fry</button><button data-method="Boil">🥣 Boil</button><button data-method="Bake">🔥 Bake</button><button data-method="Steam">♨️ Steam</button></div>
+     <div class="actions"><button id="stir">🥄 Stir / cook (0/5)</button><button id="finishCook">Done cooking ✓</button></div>
+     <div class="hint" id="methodHint">Pilih metode dulu, ya.</div>
+    </section>
+    <section id="serve" class="page">
+     <h2>🍽️ Plating is an art, babe</h2>
+     <div class="station"><div class="tiny">YOUR LITTLE MASTERPIECE</div><div class="plate" id="plate"><span class="tiny">empty plate...</span></div><div class="hint" id="plateHint">Tambahin garnish biar makin pretty.</div></div>
+     <div class="actions"><button data-garnish="🌿">🌿 Herbs</button><button data-garnish="🍓">🍓 Berry</button><button data-garnish="🧈">🧈 Butter</button><button data-garnish="✨">✨ Sparkle</button></div>
+     <div class="actions"><button id="serveDish">Serve to guest ♡</button><button onclick="go('orders')">Back to order</button></div>
+    </section>
+   </div>
+   <aside class="panel">
+    <h2>🐾 Guest corner</h2>
+    <div class="customer-stage"><span class="customer-big" id="guestFace">🐱</span><div class="bubble"><strong id="guestGuest">Mimi</strong><span id="guestSpeech">“Gue lapar, please feed me!”</span></div></div>
+    <h3>🧺 Inventory bag</h3><div class="inventory" id="sideInventory"></div>
+    <h3>💌 Deje's memo</h3><div class="note" id="memo">Elu bisa tap bahan di inventory buat mulai chopping.</div>
+    <div class="recipe"><span>⭐ Total stars</span><b id="starCount">0</b></div><div class="recipe"><span>💰 Tips earned</span><b id="tipCount">$0</b></div>
+   </aside>
+  </div>
+ </div>
+ <div class="footer">Made with butter, warm hugs & a little bit of chaos · Progress auto-saved on this device ♡</div>
+</main>
+<div class="toast" id="toast"></div>
+<div class="modal hidden" id="eatModal"><div class="modalbox"><div style="font-size:55px" id="modalFace">🥹</div><h2 id="modalTitle">OMG, so yummy!</h2><p id="modalText">Guest lagi makan...</p><button id="nextOrder">Next customer →</button></div></div>
+<script>
+const foods=[
+ {id:'bread',name:'Milk bread',icon:'🍞',price:4,cut:false},{id:'egg',name:'Egg',icon:'🥚',price:3,cut:false},
+ {id:'carrot',name:'Carrot',icon:'🥕',price:3,cut:true},{id:'cucumber',name:'Cucumber',icon:'🥒',price:3,cut:true},
+ {id:'tomato',name:'Tomato',icon:'🍅',price:3,cut:true},{id:'onion',name:'Onion',icon:'🧅',price:3,cut:true},
+ {id:'chicken',name:'Chicken',icon:'🍗',price:7,cut:true},{id:'beef',name:'Beef',icon:'🥩',price:8,cut:true},
+ {id:'fish',name:'Fish',icon:'🐟',price:7,cut:true},{id:'shrimp',name:'Shrimp',icon:'🍤',price:8,cut:true},
+ {id:'milk',name:'Milk',icon:'🥛',price:3,cut:false},{id:'cheese',name:'Cheese',icon:'🧀',price:4,cut:false},
+ {id:'mushroom',name:'Mushroom',icon:'🍄',price:4,cut:true},{id:'potato',name:'Potato',icon:'🥔',price:4,cut:true}
+];
+const guests=[
+ {name:'Mimi',pet:'🐱',line:'“Bestie, gue craving egg toast. Make it cute pls!”',order:['bread','egg'],method:'Fry',desc:'Mimi mau Milk bread + Egg. Simple breakfast, big comfort.'},
+ {name:'Bubu',pet:'🐻',line:'“Elu bisa bikinin creamy chicken soup nggak?”',order:['chicken','carrot','milk'],method:'Boil',desc:'Chicken, carrot, milk. Warm soup for a rainy mood.'},
+ {name:'Lulu',pet:'🐰',line:'“Gue pengen veggie toast yang fresh banget!”',order:['bread','cucumber','tomato'],method:'Bake',desc:'Bread, cucumber, tomato. Fresh & crunchy vibes.'},
+ {name:'Pipi',pet:'🐼',line:'“Seafood dinner? OMG yes, please!”',order:['fish','shrimp','mushroom'],method:'Steam',desc:'Fish, shrimp, mushroom. Seafood platter yang cozy.'},
+ {name:'Momo',pet:'🐹',line:'“Can I get beef potato bowl? Makasih yaa!”',order:['beef','potato','onion'],method:'Fry',desc:'Beef, potato, onion. Hearty little bowl.'}
+];
+let S={cash:45,day:1,stars:0,served:0,tips:0,guest:0,bag:{},prepared:[],dish:[],garnish:[],method:'',stirs:0,cooked:false,history:[],muted:false};
+let selected=null,swipes=0,dragging=false,lastX=0,dragDistance=0,ctx=null;
+const $=id=>document.getElementById(id),g=()=>guests[S.guest%guests.length],food=id=>foods.find(x=>x.id===id);
+function save(){localStorage.setItem('dejeComfyKitchen',JSON.stringify(S))}
+function load(){try{let x=JSON.parse(localStorage.getItem('dejeComfyKitchen'));if(x)S={...S,...x}}catch(e){}}
+function toast(t){$('toast').textContent=t;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),1800)}
+function beep(f=520){if(S.muted)return;try{ctx=ctx||new(window.AudioContext||window.webkitAudioContext)();let o=ctx.createOscillator(),a=ctx.createGain();o.connect(a);a.connect(ctx.destination);o.frequency.value=f;a.gain.value=.035;o.start();a.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.12);o.stop(ctx.currentTime+.12)}catch(e){}}
+function go(id){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));$(id).classList.add('active');document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x.dataset.tab===id));if(id==='prep'){renderInv();updateBoard()}if(id==='cook')updatePan();if(id==='serve')renderPlate()}
+document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>go(b.dataset.tab));
+function updateStats(){$('cash').textContent='🪙 $'+S.cash;$('day').textContent='☀️ Day '+S.day;$('stars').textContent='⭐ '+S.stars;$('served').textContent='🍽️ '+S.served+' served';$('starCount').textContent=S.stars;$('tipCount').textContent='$'+S.tips}
+function renderMarket(){$('marketGrid').innerHTML=foods.map(f=>`<button class="food" data-buy="${f.id}"><span class="emoji">${f.icon}</span><b>${f.name}</b><small>$${f.price}</small></button>`).join('');document.querySelectorAll('[data-buy]').forEach(b=>b.onclick=()=>buy(b.dataset.buy))}
+function buy(id){let f=food(id);if(S.cash<f.price){toast('Cash elu belum cukup, bestie 🥺');return}S.cash-=f.price;S.bag[id]=(S.bag[id]||0)+1;updateStats();renderInv();save();beep(650);toast(f.name+' added to bag ♡')}
+function renderInv(){let entries=Object.entries(S.bag).filter(([id,n])=>n>0);let html=entries.length?entries.map(([id,n])=>`<button class="inv ${selected===id?'active':''}" data-pick="${id}"><span>${food(id).icon} ${food(id).name}</span><b>×${n}</b></button>`).join(''):'<div class="tiny">Bag masih empty. Go shopping dulu!</div>';$('prepInventory').innerHTML=html;$('sideInventory').innerHTML=html;document.querySelectorAll('[data-pick]').forEach(b=>b.onclick=()=>pick(b.dataset.pick))}
+function pick(id){if(!S.bag[id])return;selected=id;swipes=0;dragDistance=0;renderInv();updateBoard();go('prep');$('prepHint').textContent=food(id).cut?'Drag knife bolak-balik 3x untuk chop!':'Bahan ini nggak perlu dipotong. Tekan Auto-prep atau langsung masak.';beep(580)}
+function updateBoard(){if(!selected){$('prepLabel').textContent='Pick an ingredient dulu, bestie.';$('chopFood').textContent='🥕';$('chopProgress').style.width='0%';return}let f=food(selected);$('prepLabel').textContent=f.icon+' '+f.name+' · '+(f.cut?'Chopping mode':'Ready to use');$('chopFood').textContent=S.prepared.includes(selected)?'✨':f.icon;$('chopProgress').style.width=(S.prepared.includes(selected)?100:Math.min(swipes/3*100,100))+'%';$('knife').style.display=f.cut&&!S.prepared.includes(selected)?'block':'none'}
+function prepareSelected(){if(!selected)return;let f=food(selected);if(S.prepared.includes(selected)){toast('Bahan ini sudah prepped!');return}if(!f.cut){S.prepared.push(selected);toast(f.name+' is ready!');save();updateBoard();return}if(swipes>=3){S.prepared.push(selected);toast('Chop chop! '+f.name+' is ready ✨');$('prepHint').textContent='Perfect cut, chef! Pick next ingredient.';beep(820);save();updateBoard();renderInv()} }
+const knife=$('knife'),board=$('board');
+knife.addEventListener('pointerdown',e=>{if(!selected||!food(selected).cut||S.prepared.includes(selected))return;dragging=true;lastX=e.clientX;dragDistance=0;knife.classList.add('dragging');knife.setPointerCapture(e.pointerId);e.preventDefault()});
+knife.addEventListener('pointermove',e=>{if(!dragging)return;let dx=e.clientX-lastX;dragDistance+=Math.abs(dx);lastX=e.clientX;let max=board.clientWidth-65;let left=Math.max(5,Math.min(max,parseFloat(knife.style.left||16)+dx));knife.style.left=left+'px';if(dragDistance>85){dragDistance=0;swipes++;$('chopProgress').style.width=Math.min(swipes/3*100,100)+'%';$('prepHint').textContent=`Chop chop! ${Math.min(swipes,3)}/3 swipe`;beep(400+swipes*100);if(swipes>=3)prepareSelected()}});
+function endDrag(){dragging=false;knife.classList.remove('dragging')}
+knife.addEventListener('pointerup',endDrag);knife.addEventListener('pointercancel',endDrag);
+function autoPrep(){let changed=0;Object.entries(S.bag).forEach(([id,n])=>{if(n>0&&!food(id).cut&&!S.prepared.includes(id)){S.prepared.push(id);changed++}});save();updateBoard();toast(changed?changed+' ingredient(s) ready!':'No non-cut ingredients to prep.')}
+function setGuest(){let x=g();$('orderPet').textContent=x.pet;$('orderName').textContent=x.name;$('orderLine').textContent=x.line;$('orderDesc').textContent=x.desc;$('orderItems').innerHTML=x.order.map(id=>`<span class="tag">${food(id).icon} ${food(id).name}</span>`).join('');$('guestFace').textContent=x.pet;$('guestGuest').textContent=x.name;$('guestSpeech').textContent=x.line;$('orderStatus').textContent='WAITING';}
+function updatePan(){$('pan').innerHTML=S.dish.length?S.dish.map(id=>`<span class="bit">${food(id).icon}</span>`).join(''):'<span class="bit">🍳</span>';$('cookProgress').style.width=(S.stirs/5*100)+'%';$('stir').textContent=`🥄 Stir / cook (${S.stirs}/5)`}
+document.querySelectorAll('[data-method]').forEach(b=>b.onclick=()=>{S.method=b.dataset.method;document.querySelectorAll('[data-method]').forEach(x=>x.style.background=x===b?'#f5dfa0':'');$('methodHint').textContent='Method selected: '+S.method+' ✨';beep()});
+$('stir').onclick=()=>{if(!S.method){toast('Choose cooking method dulu!');return}if(!S.prepared.length){toast('Prep bahan pesanan dulu, chef!');return}if(S.stirs>=5){toast('Udah matang, bestie!');return}S.stirs++;S.dish=[...S.prepared];updatePan();$('cookHint').textContent=['Sizzle sizzle...','Smells so good!','Keep stirring, chef!','Almost there...','Perfectly cooked!'][S.stirs-1];beep(500+S.stirs*50);save()};
+$('finishCook').onclick=()=>{if(!S.method||S.stirs<5){toast('Pilih metode dan stir sampai 5/5 dulu ya!');return}S.cooked=true;$('cookHint').textContent='Chef Deje approves. Looks delish!';toast('Cooking complete! Go plating ♡');save();go('serve')};
+function renderPlate(){$('plate').innerHTML=S.dish.length?S.dish.map(id=>`<span>${food(id).icon}</span>`).join('')+S.garnish.map(x=>`<span>${x}</span>`).join(''):'<span class="tiny">empty plate...</span>'}
+document.querySelectorAll('[data-garnish]').forEach(b=>b.onclick=()=>{if(!S.cooked){toast('Cook dulu, babe!');return}S.garnish.push(b.dataset.garnish);renderPlate();beep(700);});
+$('serveDish').onclick=()=>{if(!S.cooked){toast('Your dish belum ready!');return}let x=g(),correct=x.order.every(id=>S.dish.includes(id))&&S.dish.length===x.order.length;let stars=correct?3:1;let pay=correct?18:7,tip=correct?8:2;S.stars+=stars;S.cash+=pay+tip;S.tips+=tip;S.served++;S.history.unshift(`${x.pet} ${x.name}: ${stars}⭐ · ${correct?'order perfect!':'almost there!'}`);S.history=S.history.slice(0,5);updateStats();$('history').innerHTML=S.history.map(h=>`<div class="recipe">${h}</div>`).join('');$('orderStatus').textContent='SERVED';$('guestFace').classList.add('eating');$('guestSpeech').textContent='nom nom nom... OMG, this is so yummy!!';$('memo').textContent=correct?'“Order-nya perfect! Deje proud of elu. Look at that happy customer!”':'“Customer still happy, but next time double-check the order note, okay?”';for(let i=0;i<5;i++){let c=document.createElement('span');c.className='crumb';c.textContent=['✨','♡','🍞','💗','✨'][i];c.style.left=(35+i*10)+'%';c.style.top='35%';$('guestFace').parentElement.appendChild(c);setTimeout(()=>c.remove(),900)}setTimeout(()=>{$('guestFace').classList.remove('eating');$('guestFace').classList.add('happy');$('modalFace').textContent=correct?'🥹💗':'😋';$('modalTitle').textContent=correct?'OMG, so yummy!!':'Thanks, chef Deje!';$('modalText').textContent=`${x.name} makan dengan happy! ${stars} stars · $${pay} + $${tip} tip. ${correct?'You nailed the order, bestie!':'Next order, kita improve lagi ya.'}`;$('eatModal').classList.remove('hidden');save()},1900)};
+$('nextOrder').onclick=()=>{S.guest++;S.day=1+Math.floor(S.served/4);S.prepared=[];S.dish=[];S.garnish=[];S.method='';S.stirs=0;S.cooked=false;selected=null;swipes=0;$('eatModal').classList.add('hidden');document.querySelectorAll('[data-method]').forEach(x=>x.style.background='');setGuest();updateStats();renderInv();updateBoard();updatePan();renderPlate();go('orders');$('memo').textContent='New guest incoming! Cek order notebook dulu, Deje!';save()};
+$('sound').onclick=()=>{S.muted=!S.muted;$('sound').textContent=S.muted?'🔇':'🔊';save();if(!S.muted)beep()};
+$('reset').onclick=()=>{if(confirm('Reset semua progress Deje?')){localStorage.removeItem('dejeComfyKitchen');location.reload()}};
+load();renderMarket();setGuest();updateStats();renderInv();updateBoard();updatePan();renderPlate();if(S.history.length)$('history').innerHTML=S.history.map(h=>`<div class="recipe">${h}</div>`).join('');
+</script>
+</body></html>
