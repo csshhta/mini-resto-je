@@ -170,21 +170,6 @@ $('sound').onclick=()=>{S.muted=!S.muted;$('sound').textContent=S.muted?'🔇':'
 const bgMusic = new Audio('./bgm.mp3');
 bgMusic.loop = true;
 bgMusic.volume = 0.3;
-
-$('sound').onclick = async () => {
-  if (bgMusic.paused) {
-    try {
-      await bgMusic.play();
-      $('sound').textContent = '🎵 Music ON';
-    } catch (error) {
-      alert('Musik gagal diputar. Coba lagi ya!');
-    }
-  } else {
-    bgMusic.pause();
-    $('sound').textContent = '🔇 Music OFF';
-  }
-};
-
 $('reset').onclick=()=>{if(confirm('Reset semua progress Deje?')){localStorage.removeItem('dejeComfyKitchen');location.reload()}};
 load();renderMarket();setGuest();updateStats();renderInv();updateBoard();updatePan();renderPlate();if(S.history.length)$('history').innerHTML=S.history.map(h=>`<div class="recipe">${h}</div>`).join('');
 </script>
